@@ -3,17 +3,79 @@
 @import url(./reset.css);
 
 .container {
-    width: min(100% - 30px, 1080px);
+    width: min(100% - 30px, 1280px);
     margin-inline: auto;
+    height: 100%;
 }
-
-/* body {
-    font-weight: 600;
-} */
 
 /* ------------------Main style------------------ */
 /* ---------------------------------------------- */
 
 main {
     height: 100%;
+}
+
+.content {
+    height: 100%;
+    display: flex;
+}
+
+.section-one {
+    padding-top: 30px;
+    width: 35%;
+    height: 100%;
+    text-align: center;
+}
+
+.weather-img {
+    display: grid;
+    place-items: center;
+}
+
+.weather-img img {
+    height: 260px;
+    width: 260px;
+}
+
+.current-temp {
+    font-size: 60px;
+    line-height: 1;
+}
+
+.temp-info {
+    font-size: 20px;
+    padding-bottom: 30px
+}
+
+.date {
+    margin: 0px 100px;
+    border-top: 3px solid #ededef;
+    padding: 30px 0;
+}
+
+.date :nth-child(1),
+.date :nth-child(3) {
+    font-size: 18px;
+}
+
+.date :nth-child(2) {
+    font-size: 24px;
+}
+
+.city {
+    font-size: 40px;
+}
+
+.section-two {
+    padding-top: 30px;
+    width: 65%;
+    background-color: #EDEDEF;
+}
+
+input {
+    background-color: #EDEDEF;
+    width: 340px;
+    height: 50px;
+    border-radius: 30px;
+    padding: 0 15px;
 }

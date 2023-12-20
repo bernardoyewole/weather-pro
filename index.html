@@ -1,20 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" content="Bernard">
-        <meta name ="description" content="Bernard: Student">
-        <meta name="keywords" content="web developer, web, developer, front-end, html, css, javascript, react, sql">
-        <title>Weather Pro</title>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="./assets/style/index.css">
-        <script src="./assets/script/app.js" type="module"></script>
-    </head>
-    <body>
-       
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Bernard">
+    <meta name="description" content="Bernard: Student">
+    <meta name="keywords" content="web developer, web, developer, front-end, html, css, javascript, react, sql">
+    <title>Weather Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/style/index.css">
+    <script src="./assets/script/app.js" type="module"></script>
+</head>
+
+<body>
+    <main>
+        <div class="content">
+            <section class="section-one">
+                <div class="container">
+                    <input type="text" placeholder="Search for a city...">
+                    <div class="weather-img">
+                        <img src="./assets/img/cloudy.png" alt="">
+                    </div>
+                    <div class="conditions">
+                        <p class="current-temp">31&deg;C</p>
+                        <p class="temp-info">Mostly Cloudy</p>
+                    </div>
+                    <div class="date">
+                        <p>21 July, 2023</p>
+                        <p>Friday, 12:44pm</p>
+                        <p>Day</p>
+                    </div>
+                    <p class="city">Winnipeg</p>
+                </div>
+            </section>
+            <section class="section-two">
+                <div class="container">
+                    <div class="options">
+                        <h1>Today</h1>
+                        <h1>Tomorrow</h1>
+                    </div>
+                    <div class="grid-container">
+                        <div class="wind">
+                            <p>Wind</p>
+                            <h2>6 km/h</h2>
+                            <p>East</p>
+                        </div>
+                        <div class="humidity">
+                            <p>Humidity</p>
+                            <h2>69%</h2>
+                        </div>
+                        <div class="feels-like">
+                            <p>Feels like</p>
+                            <h2>31&deg;C</h2>
+                        </div>
+                        <div class="uv-index">
+                            <p>UV index</p>
+                            <h2>3</h2>
+                            <p>Moderate</p>
+                        </div>
+                        <div class="pressure">
+                            <p>Pressure</p>
+                            <h2>1000 mb</h2>
+                        </div>
+                        <div class="rain">
+                            <p>Chance of Rain</p>
+                            <h2>70%</h2>
+                        </div>
+                        <div class="temp-history">
+                            <p>Temperature History</p>
+                            <div>
+                                <i class="fa-solid fa-up-long"></i>
+                                <span class="high-temp-history">-3&deg;C</span>
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-down-long"></i>
+                                <span class="low-temp-history">-8&deg;C</span>
+                            </div>
+                        </div>
+                        <div class="sun">
+                            <div>
+                                <p>Rise</p>
+                                <p class="sunrise">5.17 am</p>
+                            </div>
+                            <div>
+                                <p>Set</p>
+                                <p class="sunset">6.00 pm</p>
+                            </div>
+                        </div>
+                        <div class="moon">
+                            <div>
+                                <p>Rise</p>
+                                <p class="moonrise">5.17 am</p>
+                            </div>
+                            <div>
+                                <p>Set</p>
+                                <p class="moonset">6.00 pm</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p>All Data provided by weatherapi.com</p>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
 </html>

@@ -18,6 +18,8 @@ html, body {
 body {
     font-family: "Montserrat", "sans-serif", Arial, sans-serif;
     line-height: 1.4;
+    font-weight: 400;
+    color: #2a2a2a;
 }
 
 a {
