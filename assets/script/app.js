@@ -16,11 +16,13 @@ const uvIndex = select('.uv-index h2');
 const pressure = select('.pressure h2');
 const precipitaion = select('.precipitation h2');
 const airQuality = select('.air-quality h2');
-// const airInfo = select('.air-info');
 const sunrise = select('.sunrise');
 const sunset = select('.sunset');
 const moonrise = select('.moonrise');
 const moonset = select('.moonset');
+const input = select('input');
+const search = select('.search');
+const loadingBg = select('.loading-bg');
 
 let lat;
 let long;
@@ -31,6 +33,10 @@ function getLocation(position) {
     long = longitude;
 
     getCurrentWeather();
+
+    setInterval(() => {
+        loadingBg.style.display = 'none';
+    }, 1000);
 }
 
 function errorHandler() {
@@ -94,9 +100,9 @@ function setMoonAndSun(obj) {
     moonset.innerText = `${obj.moonset}`;
 }
 
-async function getUserWeather() {
-    const URL = 'https://api.weatherapi.com/v1/forecast.json?key=1d1'
-    + 'fe10c1ef7468eb9f163809232012&q=Winnipeg&days=2&aqi=yes&alerts=no';
+async function getUserWeather(userInput) {
+    const URL = `https://api.weatherapi.com/v1/forecast.json?key=1d1`
+    + `fe10c1ef7468eb9f163809232012&q=${userInput}&days=2&aqi=yes&alerts=no`;
 
     try {
         const response = await fetch(URL, weatherOptions);
@@ -110,9 +116,14 @@ async function getUserWeather() {
         // console.log(current)
         // for moon and sun information
         const forecast = weather.forecast.forecastday[0].astro;
+
+        setWeather(current);
+        setMoonAndSun(forecast);
     } catch (error) {
         console.log(error.message);
     }
 }
 
-// getUserWeather();
+onEvent('click', search, () => {
+    getUserWeather(input.value);
+});

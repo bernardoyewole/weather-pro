@@ -170,7 +170,7 @@ a {
     color: #3f61e8;
 }
 
-.loader-bg {
+.loading-bg {
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -180,7 +180,7 @@ a {
     z-index: 1;
 }
 
-.loader {
+.loading {
     border: 10px solid #f3f3f3;
     border-radius: 50%;
     border-top: 10px solid #3498db;
