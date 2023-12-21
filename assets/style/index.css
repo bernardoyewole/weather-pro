@@ -3,7 +3,7 @@
 @import url(./reset.css);
 
 .container {
-    width: min(100% - 30px, 1080px);
+    width: min(100% - 50px, 1080px);
     margin-inline: auto;
     height: 100%;
 }
@@ -31,7 +31,7 @@ main {
     position: absolute;
     font-size: 20px;
     line-height: 50px;
-    left: 25%;
+    left: 27%;
     right: 72%;
     color: #3f61e8;
     cursor: pointer;
@@ -44,7 +44,7 @@ main {
 
 input {
     border: 2px solid transparent;
-    width: 340px;
+    width: 370px;
     height: 50px;
     border-radius: 30px;
     padding: 0 15px;
@@ -125,12 +125,13 @@ input:focus {
 
 .grid-container {
     padding: 20px 0;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: repeat(3, 250px);
-    gap: 50px;
+    gap: 30px;
 }
 
-.grid-container > div {
+.grid-container>div {
     background-color: #748CF1;
     border-radius: 20px;
     color: #fff;
@@ -150,15 +151,11 @@ input:focus {
     font-size: 26px;
 }
 
-.sun > div, 
-.moon > div{
+.sun>div,
+.moon>div {
     display: flex;
     align-items: end;
     gap: 15px;
-}
-
-.temp-history i {
-    font-size: 22px;
 }
 
 .fa-down-long {
@@ -171,4 +168,33 @@ input:focus {
 
 a {
     color: #3f61e8;
+}
+
+.loader-bg {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: #0f172a;
+    display: grid;
+    place-items: center;
+    z-index: 1;
+}
+
+.loader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #3498db;
+    width: 90px;
+    height: 90px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

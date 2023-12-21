@@ -21,6 +21,9 @@
 
 <body>
     <main>
+        <div class="loader-bg">
+            <div class="loader"></div>
+        </div>
         <div class="content">
             <section class="section-one">
                 <div class="container">
@@ -46,14 +49,14 @@
             <section class="section-two">
                 <div class="container">
                     <div class="options">
-                        <h1>Today</h1>
-                        <h1>Tomorrow</h1>
+                        <h1 class="today">Today</h1>
+                        <h1 class="tomorrow">Tomorrow</h1>
                     </div>
                     <div class="grid-container">
                         <div class="wind">
                             <p>Wind</p>
                             <h2>6 km/h</h2>
-                            <p>East</p>
+                            <p class="wind-direction">East</p>
                         </div>
                         <div class="humidity">
                             <p>Humidity</p>
@@ -72,20 +75,14 @@
                             <p>Pressure</p>
                             <h2>1000 mb</h2>
                         </div>
-                        <div class="rain">
-                            <p>Chance of Rain</p>
-                            <h2>70%</h2>
+                        <div class="precipitation">
+                            <p>Precipitation</p>
+                            <h2>12mm</h2>
                         </div>
-                        <div class="temp-history">
-                            <p>Temperature History</p>
-                            <div>
-                                <i class="fa-solid fa-up-long"></i>
-                                <span class="high-temp-history">-3&deg;C</span>
-                            </div>
-                            <div>
-                                <i class="fa-solid fa-down-long"></i>
-                                <span class="low-temp-history">-8&deg;C</span>
-                            </div>
+                        <div class="air-quality">
+                            <p>Air Quality</p>
+                            <h2>1</h2>
+                            <p class="air-info">Low health risk</p>
                         </div>
                         <div class="sun">
                             <p>Sun</p>
@@ -114,7 +111,7 @@
                             </div>
                         </div>
                     </div>
-                    <p>All Data provided by <a href="https://www.weatherapi.com/">weatherapi.com</a></p>
+                    <p>All data provided by <a href="https://www.weatherapi.com/">weatherapi.com</a></p>
                 </div>
             </section>
         </div>
