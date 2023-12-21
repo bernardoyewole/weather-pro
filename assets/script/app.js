@@ -3,8 +3,11 @@
 import { onEvent, select, selectAll, create, print } from "./utils.js";
 
 const currentTemp = select('.current-temp');
+const weatherImg = select('.weather-img img');
 const tempInfo = select('.temp-info');
-const date = selectAll('.date p');
+const dateText = select('.date-text');
+const timeText = select('.time-text');
+const dayOrNight = select('.day-or-night');
 const city = select('.city');
 const today = select('.today');
 const tomorrow = select('.tomorrow');
@@ -26,6 +29,7 @@ const loadingBg = select('.loading-bg');
 
 let lat;
 let long;
+let userDate;
 
 function getLocation(position) {
     let {latitude, longitude} = position.coords;
@@ -71,26 +75,54 @@ async function getCurrentWeather() {
 
         const weather = await response.json();
         const current = weather.current;
-        console.log(current)
+        const location = weather.location;
         // for moon and sun information
         const forecast = weather.forecast.forecastday[0].astro;
 
-        setWeather(current);
+        setWeather(current, location);
         setMoonAndSun(forecast);
     } catch(error) {
         console.log(error.message);
     }
 }
 
-function setWeather(obj) {
-    wind.innerText = `${obj.wind_kph}km/h`;
-    windDirection.innerText = `${obj.wind_dir}`;
-    humidity.innerText = `${obj.humidity}%`;
-    feelsLike.innerText = `${obj.feelslike_c}\u00B0C`;
-    uvIndex.innerText = `${obj.uv}`;
-    pressure.innerText = `${obj.pressure_mb}mb`;
-    precipitaion.innerText = `${obj.precip_mm}mm`;
-    airQuality.innerText = `${obj.air_quality['us-epa-index']}`;
+function setDate() {
+    userDate = new Date();
+
+    let formattedTime = new Intl.DateTimeFormat('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true
+      }).format(userDate);
+    dateText.innerText = `${userDate.toDateString()}`;
+    timeText.innerText = `${formattedTime}`;
+}
+
+function setDayOrNight() {
+    userDate = new Date();
+
+    if (userDate.getHours() >= 6 && userDate.getHours() <= 18) {
+        dayOrNight.innerText = `Day`;
+    } else {
+        dayOrNight.innerText = `Night`;
+    }
+}
+
+function setWeather(objOne, objTwo) {
+    setDate();
+    setDayOrNight();
+    currentTemp.innerText = `${objOne.temp_c}\u00B0C`;
+    tempInfo.innerText = `${objOne.condition.text}`;
+    weatherImg.setAttribute('src', objOne.condition.icon.replaceAll('64', '128'));
+    city.innerText = `${objTwo.name}, ${objTwo.country}`;
+    wind.innerText = `${objOne.wind_kph}km/h`;
+    windDirection.innerText = `${objOne.wind_dir}`;
+    humidity.innerText = `${objOne.humidity}%`;
+    feelsLike.innerText = `${objOne.feelslike_c}\u00B0C`;
+    uvIndex.innerText = `${objOne.uv}`;
+    pressure.innerText = `${objOne.pressure_mb}mb`;
+    precipitaion.innerText = `${objOne.precip_mm}mm`;
+    airQuality.innerText = `${objOne.air_quality['us-epa-index']}`;
 }
 
 function setMoonAndSun(obj) {
@@ -113,11 +145,11 @@ async function getUserWeather(userInput) {
 
         const weather = await response.json();
         const current = weather.current;
-        // console.log(current)
+        const location = weather.location;
         // for moon and sun information
         const forecast = weather.forecast.forecastday[0].astro;
 
-        setWeather(current);
+        setWeather(current, location);
         setMoonAndSun(forecast);
     } catch (error) {
         console.log(error.message);
