@@ -28,6 +28,7 @@ const moonset = select('.moonset');
 const input = select('input');
 const search = select('.search');
 const loadingBg = select('.loading-bg');
+const loading = select('.loading');
 
 let lat;
 let long;
@@ -41,14 +42,37 @@ function getLocation(position) {
 
     getCurrentWeather();
     setTodayStyle();
+    removeOverlay();
+}
 
-    setInterval(() => {
+function removeOverlay() {
+    loading.style.animationPlayState = 'paused';;
+    setTimeout(() => {
         loadingBg.style.display = 'none';
     }, 1000);
 }
 
+function displayModal() {
+    setTimeout(() => {
+        modal.style.display = 'block';
+    }, 2000)
+
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 5000)
+
+    
+}
+
 function errorHandler() {
-    console.log(`Unable to retrieve your location`);
+    // set Lagos, Nigeria as default
+    lat = 6.5244;
+    long = 3.3792;
+
+    getCurrentWeather();
+    setTodayStyle();
+    removeOverlay();
+    displayModal();
 }
 
 const geoOptions = {
@@ -59,7 +83,7 @@ if ('geolocation' in navigator) {
     const geo = navigator.geolocation;
     geo.getCurrentPosition(getLocation, errorHandler, geoOptions);
 } else {
-    console.log('Geolocation API us not supported by your browser');
+    console.log('Geolocation API is not supported by your browser');
 }
 
 const weatherOptions = {
@@ -158,8 +182,7 @@ async function getUserWeather(userInput) {
         // console.log(forecast, current);
 
         setWeather(current, location);
-        setMoonAndSun(astroCurrent);
-        
+        setMoonAndSun(astroCurrent);    
     } catch (error) {
         console.log(error.message);
     }
@@ -169,6 +192,7 @@ onEvent('click', search, () => {
     savedInput = input.value;
     getUserWeather(savedInput);
     input.value = '';
+    input.blur();
 });
 
 onEvent('keypress', input, function(event) {
@@ -177,6 +201,7 @@ onEvent('keypress', input, function(event) {
         event.preventDefault();
         search.click();
         input.value = '';
+        input.blur();
     }
 });
 
@@ -255,3 +280,33 @@ onEvent('click', today, () => {
     getUserWeather(savedInput);
 });
 
+
+
+
+
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+// var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+// var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+// btn.onclick = function() {
+//   modal.style.display = "block";
+// }
+
+// When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//   modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
