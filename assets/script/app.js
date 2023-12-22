@@ -29,6 +29,8 @@ const input = select('input');
 const search = select('.search');
 const loadingBg = select('.loading-bg');
 const loading = select('.loading');
+const feedback = select('.feedback');
+const modal = document.getElementById("myModal");
 
 let lat;
 let long;
@@ -36,13 +38,14 @@ let userDate;
 let savedInput;
 
 function getLocation(position) {
-    let {latitude, longitude} = position.coords;
+    let { latitude, longitude } = position.coords;
     lat = latitude;
     long = longitude;
 
     getCurrentWeather();
     setTodayStyle();
     removeOverlay();
+    feedback.innerText = '';
 }
 
 function removeOverlay() {
@@ -55,17 +58,15 @@ function removeOverlay() {
 function displayModal() {
     setTimeout(() => {
         modal.style.display = 'block';
-    }, 2000)
+    }, 2000);
 
     setTimeout(() => {
         modal.style.display = 'none';
-    }, 5000)
-
-    
+    }, 5000);
 }
 
 function errorHandler() {
-    // set Lagos, Nigeria as default
+    // set Lagos, Nigeria as default location
     lat = 6.5244;
     long = 3.3792;
 
@@ -83,7 +84,7 @@ if ('geolocation' in navigator) {
     const geo = navigator.geolocation;
     geo.getCurrentPosition(getLocation, errorHandler, geoOptions);
 } else {
-    console.log('Geolocation API is not supported by your browser');
+    feedback.innerText = `Geolocation API is not supported by your browser`;
 }
 
 const weatherOptions = {
@@ -92,7 +93,7 @@ const weatherOptions = {
 
 async function getCurrentWeather() {
     const URL = `https://api.weatherapi.com/v1/forecast.json?key=1d1`
-    + `fe10c1ef7468eb9f163809232012&q=${lat},${long}&days=2&aqi=yes&alerts=no`;
+        + `fe10c1ef7468eb9f163809232012&q=${lat},${long}&days=2&aqi=yes&alerts=no`;
 
     try {
         const response = await fetch(URL, weatherOptions);
@@ -104,13 +105,13 @@ async function getCurrentWeather() {
         const weather = await response.json();
         const current = weather.current;
         const location = weather.location;
-        // for moon, sun information
+        // for moon and sun information
         const astro = weather.forecast.forecastday[0].astro;
 
         setWeather(current, location);
         setMoonAndSun(astro);
-    } catch(error) {
-        console.log(error.message);
+    } catch (error) {
+        error.message == 400 ? feedback.innerText = `No matching location found` : '';
     }
 }
 
@@ -121,7 +122,7 @@ function setDate() {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true
-      }).format(userDate);
+    }).format(userDate);
     dateText.innerText = `${userDate.toDateString()}`;
     timeText.innerText = `${formattedTime}`;
 }
@@ -154,6 +155,7 @@ function setWeather(objOne, objTwo) {
     airQuality.innerText = `${objOne.air_quality['us-epa-index']}`;
     feelsHeading.innerText = `Feels Like`;
     pressureHeading.innerText = `Pressure`;
+    feedback.innerText = '';
 }
 
 function setMoonAndSun(obj) {
@@ -165,13 +167,13 @@ function setMoonAndSun(obj) {
 
 async function getUserWeather(userInput) {
     const URL = `https://api.weatherapi.com/v1/forecast.json?key=1d1`
-    + `fe10c1ef7468eb9f163809232012&q=${userInput}&days=2&aqi=yes&alerts=no`;
+        + `fe10c1ef7468eb9f163809232012&q=${userInput}&days=2&aqi=yes&alerts=no`;
 
     try {
         const response = await fetch(URL, weatherOptions);
 
         if (!response.ok) {
-            throw new Error(`${response.statusText} (${response.status})`);
+            throw new Error(`${response.status} ${response.statusText}`);
         }
 
         const weather = await response.json();
@@ -179,35 +181,36 @@ async function getUserWeather(userInput) {
         const location = weather.location;
         // for moon and sun information
         const astroCurrent = weather.forecast.forecastday[0].astro;
-        // console.log(forecast, current);
 
         setWeather(current, location);
-        setMoonAndSun(astroCurrent);    
+        setMoonAndSun(astroCurrent);
     } catch (error) {
-        console.log(error.message);
+        error.message == 400 ? feedback.innerText = `No matching location found` : '';
     }
 }
 
 onEvent('click', search, () => {
-    savedInput = input.value;
+    savedInput = input.value.trim();
     getUserWeather(savedInput);
     input.value = '';
     input.blur();
+    setTodayStyle();
 });
 
-onEvent('keypress', input, function(event) {
+onEvent('keypress', input, function (event) {
     if (event.key === "Enter") {
-        savedInput = input.value;
+        savedInput = input.value.trim();
         event.preventDefault();
         search.click();
         input.value = '';
         input.blur();
+        setTodayStyle();
     }
 });
 
 async function forecastWeather(userInput) {
     const URL = `https://api.weatherapi.com/v1/forecast.json?key=1d1`
-    + `fe10c1ef7468eb9f163809232012&q=${userInput}&days=2&aqi=yes&alerts=no`;
+        + `fe10c1ef7468eb9f163809232012&q=${userInput}&days=2&aqi=yes&alerts=no`;
 
     try {
         const response = await fetch(URL, weatherOptions);
@@ -221,12 +224,11 @@ async function forecastWeather(userInput) {
         const forecast = weather.forecast.forecastday[1].day;
         // for moon and sun information
         const astroTomorrow = weather.forecast.forecastday[1].astro;
-        console.log(astroTomorrow);
 
         setTomorrowWeather(forecast);
-        setMoonAndSun(astroTomorrow);     
+        setMoonAndSun(astroTomorrow);
     } catch (error) {
-        console.log(error.message);
+        error.message == 400 ? feedback.innerText = `No matching location found` : '';
     }
 }
 
@@ -244,17 +246,17 @@ function setTodayStyle() {
     today.classList.remove('other');
 }
 
-function setTomorrowDate() {
+function setTomorrowDate(obj) {
     let today = new Date();
     let tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
     dateText.innerText = `${tomorrow.toDateString()}`;
-    timeText.innerText = ``;
-    dayOrNight.innerText = ``;
+    timeText.innerText = `Min Temp: ${obj.mintemp_c}\u00B0C`;
+    dayOrNight.innerText = `Max Temp: ${obj.maxtemp_c}\u00B0C`;
 }
 
 function setTomorrowWeather(objOne) {
-    setTomorrowDate();
+    setTomorrowDate(objOne);
     currentTemp.innerText = `${objOne.avgtemp_c}\u00B0C`;
     tempInfo.innerText = `${objOne.condition.text}`;
     weatherImg.setAttribute('src', objOne.condition.icon.replaceAll('64', '128'));
@@ -280,33 +282,8 @@ onEvent('click', today, () => {
     getUserWeather(savedInput);
 });
 
-
-
-
-
-
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-// var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-// var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-// btn.onclick = function() {
-//   modal.style.display = "block";
-// }
-
-// When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// }
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+onEvent('click', window, (event) => {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+});

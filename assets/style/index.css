@@ -8,9 +8,6 @@
     height: 100%;
 }
 
-/* ------------------Main style------------------ */
-/* ---------------------------------------------- */
-
 main {
     height: 100%;
 }
@@ -19,6 +16,9 @@ main {
     height: 100%;
     display: flex;
 }
+
+/* ----------------Section one style------------- */
+/* ---------------------------------------------- */
 
 .section-one {
     padding-top: 30px;
@@ -56,14 +56,16 @@ input:focus {
     border-color: #3f61e8;
 }
 
+
+.feedback {
+    margin-top: 5px;
+    color: #eb3257;
+    height: 20px;
+}
+
 .weather-img {
     display: grid;
     place-items: center;
-}
-
-.weather-img img {
-    height: 230px;
-    width: 230px;
 }
 
 .current-temp {
@@ -73,13 +75,13 @@ input:focus {
 
 .temp-info {
     font-size: 20px;
-    padding-bottom: 30px
+    padding-bottom: 40px
 }
 
 .date {
     margin: 0px 100px;
-    border-top: 3px solid #f1f3fe;
-    padding: 30px 0;
+    border-top: 2px solid #dadadd;
+    padding: 40px 0;
 }
 
 .date-text,
@@ -89,13 +91,20 @@ input:focus {
 }
 
 .day-or-night {
-    font-size: 18px;
+    font-size: 24px;
     height: 24px;
 }
 
 .city {
     font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
 }
+
+/* ----------------Section two style------------- */
+/* ---------------------------------------------- */
 
 .section-two {
     padding-top: 30px;
@@ -116,9 +125,20 @@ input:focus {
     transition: all 0.2s ease-in-out;
 }
 
+.current-day {
+    color: #748CF1;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.other {
+    color: #68717d;
+    font-size: 18px;
+}
+
 .grid-container {
     padding: 20px 0;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     display: grid;
     grid-template-columns: repeat(3, 250px);
     grid-template-rows: repeat(3, 140px);
@@ -163,6 +183,9 @@ a {
     color: #3f61e8;
 }
 
+/* ----------------Loading overlay style------------- */
+/* -------------------------------------------------- */
+
 .loading-bg {
     position: fixed;
     height: 100vh;
@@ -192,6 +215,9 @@ a {
     }
 }
 
+/* ----------------Modal style---------------- */
+/* ------------------------------------------- */
+
 .modal {
     display: none;
     position: fixed;
@@ -212,7 +238,7 @@ a {
     padding: 20px;
     width: 30%;
     animation-name: animatetop;
-    animation-duration: 0.4s;
+    animation-duration: 0.6s;
     border-radius: 6px;
     color: #fff;
     font-size: 22px;
@@ -242,15 +268,4 @@ a {
         top: 0;
         opacity: 1
     }
-}
-
-.current-day {
-    color: #748CF1;
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.other {
-    color: #68717d;
-    font-size: 18px;
 }

@@ -1,6 +1,7 @@
 ## Weather
 
-Check out the current weather with this weather app.
+Explore real-time weather conditions for any city with this application, powered by an advanced weather API. 
+Stay informed about the current weather in your desired locations effortlessly.
 
 ### Built With
 <p align='center'>
@@ -11,9 +12,3 @@ Check out the current weather with this weather app.
 
 ## Demo
 Click [here](https://bernardoyewole.github.io/weather-pro/) to check it out.
-
-A demo is show below:
-
-<p align='center'>
-<img src='./assets/img/calculator.png'>
-</p>
