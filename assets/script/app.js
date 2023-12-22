@@ -66,9 +66,9 @@ function displayModal() {
 }
 
 function errorHandler() {
-    // set Lagos, Nigeria as default location
-    lat = 6.5244;
-    long = 3.3792;
+    // set Winnipeg, Manitoba as default location
+    lat = 49.895077;
+    long = -97.138451;
 
     getCurrentWeather();
     setTodayStyle();
@@ -186,6 +186,7 @@ async function getUserWeather(userInput) {
         setMoonAndSun(astroCurrent);
     } catch (error) {
         error.message == 400 ? feedback.innerText = `No matching location found` : '';
+        savedInput = city.innerText;
     }
 }
 
@@ -227,6 +228,7 @@ async function forecastWeather(userInput) {
 
         setTomorrowWeather(forecast);
         setMoonAndSun(astroTomorrow);
+        savedInput = city.innerText;
     } catch (error) {
         error.message == 400 ? feedback.innerText = `No matching location found` : '';
     }
@@ -255,21 +257,22 @@ function setTomorrowDate(obj) {
     dayOrNight.innerText = `Max Temp: ${obj.maxtemp_c}\u00B0C`;
 }
 
-function setTomorrowWeather(objOne) {
-    setTomorrowDate(objOne);
-    currentTemp.innerText = `${objOne.avgtemp_c}\u00B0C`;
-    tempInfo.innerText = `${objOne.condition.text}`;
-    weatherImg.setAttribute('src', objOne.condition.icon.replaceAll('64', '128'));
-    wind.innerText = `${objOne.maxwind_kph}km/h`;
+function setTomorrowWeather(obj) {
+    setTomorrowDate(obj);
+    currentTemp.innerText = `${obj.avgtemp_c}\u00B0C`;
+    tempInfo.innerText = `${obj.condition.text}`;
+    weatherImg.setAttribute('src', obj.condition.icon.replaceAll('64', '128'));
+    wind.innerText = `${obj.maxwind_kph}km/h`;
     windDirection.innerText = ``;
-    humidity.innerText = `${objOne.avghumidity}%`;
+    humidity.innerText = `${obj.avghumidity}%`;
     feelsHeading.innerText = `Visibility`;
-    feelsLike.innerText = `${objOne.avgvis_km}km`;
-    uvIndex.innerText = `${objOne.uv}`;
+    feelsLike.innerText = `${obj.avgvis_km}km`;
+    uvIndex.innerText = `${obj.uv}`;
     pressureHeading.innerText = `Chance of Rain`;
-    pressure.innerText = `${objOne.daily_chance_of_rain}%`;
-    precipitaion.innerText = `${objOne.totalprecip_mm}mm`;
-    airQuality.innerText = `${objOne.air_quality['us-epa-index']}`;
+    pressure.innerText = `${obj.daily_chance_of_rain}%`;
+    precipitaion.innerText = `${obj.totalprecip_mm}mm`;
+    airQuality.innerText = `${obj.air_quality['us-epa-index']}`;
+    feedback.innerText = '';
 }
 
 onEvent('click', tomorrow, () => {
