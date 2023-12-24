@@ -193,7 +193,6 @@ async function getUserWeather(userInput) {
 onEvent('click', search, () => {
     savedInput = input.value.trim();
     getUserWeather(savedInput);
-    input.value = '';
     input.blur();
     setTodayStyle();
 });
@@ -203,7 +202,6 @@ onEvent('keypress', input, function (event) {
         savedInput = input.value.trim();
         event.preventDefault();
         search.click();
-        input.value = '';
         input.blur();
         setTodayStyle();
     }
